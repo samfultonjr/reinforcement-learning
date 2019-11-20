@@ -25,6 +25,17 @@ You will need to include reinforcement-learning as well as tensorflow.js
 
 ## DQN
 
+### Parameters
+        arch
+        epsilon
+        epsilonDecay
+        replayMemorySize
+        miniBatchSize
+        actionSpaceSize
+        minReplaySize
+        updateTargetEvery
+        accuracyLookbackSize
+
 ```javascript
 const rl = require('reinforcement-learning');
 let step = 0;
@@ -41,7 +52,6 @@ function calcReward(state, action){
     step++;
     let episodeDone = false;
     if(step === 100){episodeDone = true; step = 0;}
-    
 
     // Two armed bandit. Agent has to learn to always pick 1
     if(action === 1)return {reward: 1, newState:[0], done: true, episodeDone};
