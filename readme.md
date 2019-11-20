@@ -37,10 +37,11 @@ let arch = [
 function getState(){return [0];}
 
 function calcReward(state, action){
+    // Every 100 steps end the episode
     step++;
     let episodeDone = false;
     if(step === 100){episodeDone = true; step = 0;}
-    // Every 100 steps end the episode
+    
 
     // Two armed bandit. Agent has to learn to always pick 1
     if(action === 1)return {reward: 1, newState:[0], done: true, episodeDone};
