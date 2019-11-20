@@ -63,82 +63,47 @@ const  rl = require('reinforcement-learning');
   
 
 ```javascript
-
 const  rl = require('reinforcement-learning');
-
 let  step = 0;
 
-  
 
 let  arch = [
-
 {inputShape:  1, units:  14, activation:  'relu'},
-
 {units:  2, activation:  'softmax'}
-
 ];
-
   
-
 function  getState(){return [0];}
 
-  
-
 function  calcReward(state, action){
-
 // Every 100 steps end the episode
-
 step++;
-
 let  episodeDone = false;
-
 if(step === 100){episodeDone = true; step = 0;}
 
-  
-
 // Two armed bandit. Agent has to learn to always pick 1
-
 if(action === 1)return {reward:  1, newState:[0], done:  true, episodeDone};
-
 else{ return {reward:  0, newState:[0], done:  true, episodeDone}}
-
 }
 
-  
-  
 
 (async()=>{
-
 let  agent = rl.DQN({
-
 arch,
-
 epsilon:  0,
-
 epsilonDecay:  0,
-
 replayMemorySize:  1000,
-
 miniBatchSize:  64,
-
 actionSpaceSize:  2,
-
 minReplaySize:  100,
-
 updateTargetEvery:  1,
-
 accuracyLookbackSize:  500
-
 });
 
   
-
 await  agent.learn({accuracy:  95, getState, calcReward});
 
   
-
 })();
-
   
   
   
