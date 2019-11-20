@@ -26,7 +26,7 @@ You will need to include reinforcement-learning as well as tensorflow.js
 ## DQN
 
 ### Parameters
-        arch
+        arche
         epsilon
         epsilonDecay
         replayMemorySize
