@@ -61,6 +61,9 @@ function calcReward(state, action){
     let episodeDone = false;
     step++;
     if(step === 100){episodeDone = true; step = 0;}
+    // Every 100 steps end the episode
+
+    // Two armed bandit. Agent has to learn to always pick 1
     if(action === 1)return {reward: 1, newState:[0], done: true, episodeDone};
     else{ return {reward: 0, newState:[0], done: true, episodeDone}}
 }
