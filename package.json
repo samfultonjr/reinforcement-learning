@@ -1,0 +1,21 @@
+{
+  "name": "reinforcement-learning",
+  "version": "1.0.015",
+  "description": "Reinforcement learning in javascript",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "@tensorflow/tfjs": "^1.3.2"
+  },
+  "keywords": [
+    "reinforcement learning",
+    "tensorflow.js",
+    "tf.js",
+    "DQN",
+    "Q learning",
+    "Genetic algorithim",
+    "Deep learning",
+    "Neural network"
+  ],
+  "exclude": ["node_modules"]
+}
