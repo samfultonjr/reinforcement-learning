@@ -1,6 +1,6 @@
 {
   "name": "reinforcement-learning",
-  "version": "1.0.016",
+  "version": "1.0.018",
   "description": "Reinforcement learning in javascript",
   "main": "index.js",
   "license": "MIT",

@@ -2,7 +2,7 @@ require('../src/importBestTF').importBestTF();
 
 class DQNAgent {
 
-    constructor({arch, epsilon, epsilonDecay, replayMemorySize, miniBatchSize, actionSpaceSize, maxReplayMemorySize, minReplaySize, updateTargetEvery, accuracyLookbackSize}){
+    constructor({arch, epsilon, epsilonDecay, replayMemorySize, miniBatchSize, actionSpaceSize, maxReplayMemorySize, minReplaySize, updateTargetEvery, accuracyLookbackSize, discount}){
         this.arch = arch;
         this.epsilon = epsilon;
         this.epsilonDecay = epsilonDecay;
@@ -17,6 +17,7 @@ class DQNAgent {
         this.maxReplayMemorySize = maxReplayMemorySize;
         this.minReplaySize = minReplaySize;
         this.updateTargetEvery = updateTargetEvery;
+        this.discount = discount;
         // Gets trained every step
         this.model = this.createModel();
         // Predicts against every step, gets updated after every episode to keep model stable
@@ -51,7 +52,7 @@ class DQNAgent {
 
     getQs(state){
         return tf.tidy(()=>{
-            return maxIndex(this.targetModel.predict(tf.tensor(state)).dataSync());
+            return maxIndex(this.targetModel.predict(tf.tensor([state])).dataSync());
         });
     }
 
@@ -85,7 +86,7 @@ class DQNAgent {
 
             if(!done){
                 let maxFutureQ = Math.max(futureQs);
-                newQ = reward + DISCOUNT * maxFutureQ
+                newQ = reward + (this.discount * maxFutureQ);
             }
             else{ newQ = reward }
 
@@ -110,8 +111,9 @@ class DQNAgent {
     endEpisode(){
         this.targetModel.setWeights(this.model.getWeights());
         this.targetUpdateCounter = 0;
-        this.accuracy = (this.accuracyLookback.reduce(function(a, b) { return a + b; }, 0) / this.accuracyLookbackSize) * 100;
+        // this.accuracy = (this.accuracyLookback.reduce(function(a, b) { return a + b; }, 0) / this.accuracyLookbackSize) * 100;
         // this.accuracy = (this.totalRewards / this.totalSteps) * 100;
+        this.accuracy = 0;
         console.log(`Accuracy: ${this.accuracy}  Timing: ${(Date.now() - this.episodeStartTime)}  Epsilon: ${this.epsilon}`);
         this.epsilon = this.epsilon * this.epsilonDecay;
         this.episodeSteps = 0;

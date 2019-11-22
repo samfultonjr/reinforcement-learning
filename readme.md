@@ -104,10 +104,6 @@ await  agent.learn({accuracy:  95, getState, calcReward});
 
   
 })();
-  
-  
-  
-
 ```
 
   
